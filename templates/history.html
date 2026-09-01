@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>History - SmartShield AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0b1220;
+            color: white;
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            background: #101827;
+            border-bottom: 1px solid #243044;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        nav a {
+            color: #aebbd0;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #111c2e;
+            border: 1px solid #26364d;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            word-break: break-word;
+        }
+
+        .high {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .suspicious {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .low {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .date {
+            color: #64748b;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #94a3b8;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<nav>
+
+    <div class="logo">
+        🛡️ Smart<span>Shield</span> AI
+    </div>
+
+
+    <div>
+
+        <a href="/">Analyzer</a>
+
+        <a href="/history">History</a>
+
+        <a href="/safety">Safety Tips</a>
+
+        <a href="/logout">Logout</a>
+
+    </div>
+
+</nav>
+
+
+
+<div class="container">
+
+    <h1>📜 Analysis History</h1>
+
+
+    {% if records %}
+
+
+        {% for record in records %}
+
+
+        <div class="card">
+
+            <div class="message">
+
+                <strong>Message:</strong>
+
+                {{ record.message }}
+
+            </div>
+
+
+            <p>
+
+                <strong>Risk Score:</strong>
+
+                {{ record.risk_score }} / 100
+
+            </p>
+
+
+            <p>
+
+                <strong>Risk Level:</strong>
+
+
+                {% if record.risk_level == "HIGH RISK" %}
+
+                    <span class="high">
+
+                        🔴 HIGH RISK
+
+                    </span>
+
+
+                {% elif record.risk_level == "SUSPICIOUS" %}
+
+                    <span class="suspicious">
+
+                        🟠 SUSPICIOUS
+
+                    </span>
+
+
+                {% else %}
+
+                    <span class="low">
+
+                        🟢 LOW RISK
+
+                    </span>
+
+                {% endif %}
+
+
+            </p>
+
+
+            <p>
+
+                <strong>Detected Words:</strong>
+
+                {{ record.detected_words }}
+
+            </p>
+
+
+            <div class="date">
+
+                Analyzed on:
+
+                {{ record.created_at }}
+
+            </div>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <div class="empty">
+
+            <h2>No analysis history yet!</h2>
+
+            <p>
+                Analyze a suspicious message to see it here.
+            </p>
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>
